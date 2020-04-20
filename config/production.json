@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://hanihusam:hanihusam123@loanreminder-xluti.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}

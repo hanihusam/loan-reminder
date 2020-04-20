@@ -1,0 +1,35 @@
+{
+  "name": "loan-reminder",
+  "version": "1.0.0",
+  "description": "Loan reminder",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --preifx client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanihusam/loan-reminder.git"
+  },
+  "author": "Hani H.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hanihusam/loan-reminder/issues"
+  },
+  "homepage": "https://github.com/hanihusam/loan-reminder#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.9"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.3"
+  }
+}
