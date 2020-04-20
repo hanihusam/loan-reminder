@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
+import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -21,7 +22,10 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = ({ history }) => {
+  const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
+
+  const { setAlert } = alertContext;
   const { login, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
@@ -30,21 +34,17 @@ const Login = ({ history }) => {
     }
 
     if (error) {
-      //   setAlert(error, "danger");
+      setAlert(error, "danger");
       clearErrors();
     }
     // eslint-disable-next-line
   }, [error, isAuthenticated, history]);
 
   const onLogin = (email, password) => {
-    if (email === "" || password === "") {
-      // setAlert("Please enter all fields", "danger");
-    } else {
-      login({
-        email,
-        password,
-      });
-    }
+    login({
+      email,
+      password,
+    });
   };
 
   return (

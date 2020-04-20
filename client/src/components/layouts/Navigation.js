@@ -15,19 +15,14 @@ const Navigation = ({ title }) => {
 
   const authLinks = (
     <Fragment>
-      <Nav.Item>
-        <Navbar.Brand>
-          <h3>Hello {user && user.name}</h3>
-        </Navbar.Brand>
-      </Nav.Item>
+      <Nav.Link as="div" className="text-white">
+        <Navbar.Brand>Hello {user && user.name}</Navbar.Brand>
+      </Nav.Link>
       <Nav.Link as={Link} to="/">
         Home
       </Nav.Link>
       <Nav.Link as={Link} to="/broadcast">
         Broadcast
-      </Nav.Link>
-      <Nav.Link as={Link} to="/about">
-        About
       </Nav.Link>
       <Nav.Item>
         <Button variant="danger" onClick={onLogout}>

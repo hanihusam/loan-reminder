@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
 import PropTypes from "prop-types";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -28,25 +30,37 @@ const RegisterSchema = Yup.object().shape({
     .required("Password confirm is required"),
 });
 
-const Register = ({ isAuth, register }) => {
-  //   const [registered, setRegistered] = useState(false);
+const Register = ({ history }) => {
+  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
 
-  //   useEffect(() => {
-  //     return () => {
-  //       setRegistered(false);
-  //     };
-  //   }, []);
+  const { setAlert } = alertContext;
+  const { register, error, clearErrors, isAuthenticated } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/");
+    }
+
+    if (error) {
+      setAlert(error, "danger");
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, history]);
 
   const onRegister = (name, email, password, confirm_password) => {
-    // register(name, email, phone, password, confirm_password);
-    // setRegistered(true);
+    if (password !== confirm_password) {
+      setAlert("Password do not match", "danger");
+    } else {
+      register({
+        name,
+        email,
+        password,
+      });
+    }
   };
 
-  //   if (isAuth) {
-  //     return <Redirect to="/" />;
-  //   } else if (registered) {
-  //     return <Redirect to="/login" />;
-  //   } else
   return (
     <div className="d-flex min-vh-100 flex-row align-items-center">
       <Container>
@@ -196,7 +210,7 @@ const Register = ({ isAuth, register }) => {
                 <Row className="text-center justify-content-center">
                   <Col>
                     <p className="mb-2">Do you have account?</p>
-                    <Link to="/peserta/login">
+                    <Link to="/login">
                       <Button className="mb-1" variant="success" block>
                         Login
                       </Button>
@@ -210,6 +224,10 @@ const Register = ({ isAuth, register }) => {
       </Container>
     </div>
   );
+};
+
+Register.propTypes = {
+  history: PropTypes.object,
 };
 
 export default Register;

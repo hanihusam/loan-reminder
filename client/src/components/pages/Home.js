@@ -11,13 +11,13 @@ const Home = () => {
   }, []);
 
   return (
-    <Container>
+    <Container style={{ paddingTop: "70px" }}>
       <Row>
         <Col md={6} className="my-4">
           {/* <ContactForm /> */}
         </Col>
         <Col md={6} className="my-4">
-          <h2 className="text-center mx-4">Contact List</h2>
+          <h2 className="text-center display-4 mx-4">Contact List</h2>
           {/* <ContactFilter />
         <Contact /> */}
         </Col>

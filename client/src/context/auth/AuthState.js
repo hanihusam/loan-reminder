@@ -27,8 +27,8 @@ const AuthState = (props) => {
 
   // Load User
   const loadUser = async () => {
-    if (localStorage.token) {
-      SetAuthToken(localStorage.token);
+    if (localStorage.getItem("token")) {
+      SetAuthToken(localStorage.getItem("token"));
     }
 
     try {

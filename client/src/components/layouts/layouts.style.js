@@ -1,12 +1,25 @@
 import styled from "styled-components";
 
 export const NavbarArea = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   .nav-link {
     padding-right: 15px !important;
     padding-bottom: 10px !important;
   }
   .navbar-toggler {
     border-color: transparent !important;
+  }
+  .navbar-nav {
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    position: relative;
+    .navbar-nav {
+      align-items: unset;
+    }
   }
 `;
 
