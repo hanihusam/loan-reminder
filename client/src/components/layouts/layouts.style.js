@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const NavbarArea = styled.div`
   .nav-link {
     padding-right: 15px !important;
+    padding-bottom: 10px !important;
   }
   .navbar-toggler {
     border-color: transparent !important;
