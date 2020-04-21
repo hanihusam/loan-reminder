@@ -16,6 +16,15 @@ const ContactSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  deadline: {
+    type: Date,
+    default: Date.now,
+  },
+  paid: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,
