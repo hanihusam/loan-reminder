@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import ContactFilter from "../contact/ContactFilter";
 import ContactForm from "../contact/ContactForm";
+import Contact from "../contact/Contact";
 import AuthContext from "../../context/auth/authContext";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -22,7 +23,7 @@ const Home = () => {
           <Col md={6} className="my-4">
             <h2 className="text-center display-4 my-4">Contact List</h2>
             <ContactFilter />
-            {/* <Contact /> */}
+            <Contact />
           </Col>
         </Row>
       </Container>

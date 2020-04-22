@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import ContactContext from "../../context/contact/contactContext";
@@ -19,6 +19,19 @@ const ContactSchema = Yup.object().shape({
   loan_amount: Yup.string().required("Loan amount is required!"),
   deadline: Yup.string().required("Deadline date is required!"),
 });
+
+const DatePickerField = ({ name, value, onChange }) => {
+  return (
+    <DatePicker
+      className="form-control"
+      dateFormat="d/MM/yyyy"
+      selected={(value && new Date(value)) || null}
+      onChange={(val) => {
+        onChange(name, val);
+      }}
+    />
+  );
+};
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
@@ -56,15 +69,16 @@ const ContactForm = () => {
         name: "",
         phone: "",
         loan_amount: "",
-        deadline: new Date(),
+        deadline: "",
         paid: false,
       }}
       validationSchema={ContactSchema}
       onSubmit={(
         { name, phone, loan_amount, deadline, paid },
-        { setSubmitting }
+        { setSubmitting, resetForm }
       ) => {
         onSubmit({ name, phone, loan_amount, deadline, paid });
+        resetForm();
         setSubmitting(false);
       }}
     >
@@ -152,20 +166,14 @@ const ContactForm = () => {
               <InputGroup.Prepend>
                 <InputGroup.Text>Jatuh tempo</InputGroup.Text>
               </InputGroup.Prepend>
-              <DatePicker
-                dateFormat="d/MM/yyyy"
-                className="form-control"
-                selected={values.deadline}
-                onChange={handleChange}
+              <Form.Control
+                as={DatePickerField}
+                name="deadline"
+                value={values.deadline}
+                onChange={setFieldValue}
                 isInvalid={errors.deadline && touched.deadline}
               />
             </InputGroup>
-            <Form.Control.Feedback
-              className={errors.deadline && touched.deadline ? "d-block" : ""}
-              type="invalid"
-            >
-              {errors.deadline}
-            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
             <Form.Label>Paid Off</Form.Label>
