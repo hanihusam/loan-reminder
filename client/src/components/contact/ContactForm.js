@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import ContactContext from "../../context/contact/contactContext";
@@ -34,6 +34,8 @@ const DatePickerField = ({ name, value, onChange }) => {
 };
 
 const ContactForm = () => {
+  const [currentContact, setCurrentContact] = useState({});
+
   const contactContext = useContext(ContactContext);
   const alertContext = useContext(AlertContext);
   const {
@@ -43,6 +45,12 @@ const ContactForm = () => {
     clearCurrent,
     error,
   } = contactContext;
+
+  useEffect(() => {
+    if (current) {
+      setCurrentContact(current);
+    }
+  }, [contactContext, current]);
 
   useEffect(() => {
     if (error) {
@@ -66,11 +74,11 @@ const ContactForm = () => {
   return (
     <Formik
       initialValues={{
-        name: "",
-        phone: "",
-        loan_amount: "",
-        deadline: "",
-        paid: false,
+        name: current ? currentContact.name : "",
+        phone: current ? currentContact.phone : "",
+        loan_amount: current ? currentContact.loan_amount : "",
+        deadline: current ? currentContact.deadline : "",
+        paid: current ? currentContact.paid : false,
       }}
       validationSchema={ContactSchema}
       onSubmit={(
@@ -205,7 +213,7 @@ const ContactForm = () => {
           {current && (
             <div className="text-center mt-2">
               <Button
-                variant="light"
+                variant="secondary"
                 type="submit"
                 className="btn-block"
                 onClick={clearAll}

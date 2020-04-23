@@ -9,6 +9,18 @@ const ContactItem = ({ contact }) => {
 
   const { _id, name, phone, loan_amount, deadline, paid } = contact;
 
+  const formatDate = (date) => {
+    let d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [day, month, year].join("-");
+  };
+
   const onDelete = () => {
     deleteContact(_id);
     clearCurrent();
@@ -38,11 +50,11 @@ const ContactItem = ({ contact }) => {
               </p>
             </li>
           )}
-          {loan_amount && (
+          {deadline && (
             <li>
               <p>
-                <strong>Jumlah Hutang</strong> <br />
-                <span>Rp</span> {loan_amount}
+                <strong>Tanggal Jatuh Tempo</strong> <br />
+                <i className="fas fa-calendar" /> {formatDate(deadline)}
               </p>
             </li>
           )}

@@ -12,15 +12,15 @@ import {
   CLEAR_CURRENT,
   UPDATE_CONTACT,
   CONTACT_ERROR,
-  CLEAR_CONTACTS
+  CLEAR_CONTACTS,
 } from "../types";
 
-const ContactState = props => {
+const ContactState = (props) => {
   const initialState = {
     contacts: [],
     current: null,
     filtered: null,
-    error: null
+    error: null,
   };
 
   const [state, dispatch] = useReducer(contactReducer, initialState);
@@ -36,11 +36,11 @@ const ContactState = props => {
   };
 
   // Add Contact
-  const addContact = async contact => {
+  const addContact = async (contact) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     try {
@@ -52,7 +52,7 @@ const ContactState = props => {
   };
 
   // Delete Contact
-  const deleteContact = async id => {
+  const deleteContact = async (id) => {
     try {
       await axios.delete(`/api/contacts/${id}`);
       dispatch({ type: DELETE_CONTACT, payload: id });
@@ -67,7 +67,7 @@ const ContactState = props => {
   };
 
   // Set Current Contact
-  const setCurrent = contact => {
+  const setCurrent = (contact) => {
     dispatch({ type: SET_CURRENT, payload: contact });
   };
 
@@ -77,16 +77,16 @@ const ContactState = props => {
   };
 
   // Update Contact
-  const updateContact = async contact => {
+  const updateContact = async (contact) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     try {
       const res = await axios.put(
-        `/api/contacts/${contact._id}`,
+        `/api/contacts/${contact.id}`,
         contact,
         config
       );
@@ -97,7 +97,7 @@ const ContactState = props => {
   };
 
   // Filter Contact
-  const filterContact = text => {
+  const filterContact = (text) => {
     dispatch({ type: FILTER_CONTACTS, payload: text });
   };
 
@@ -121,7 +121,7 @@ const ContactState = props => {
         setCurrent,
         clearCurrent,
         filterContact,
-        clearFilter
+        clearFilter,
       }}
     >
       {props.children}
